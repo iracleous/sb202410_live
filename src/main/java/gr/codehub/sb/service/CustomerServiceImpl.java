@@ -35,4 +35,22 @@ public class CustomerServiceImpl implements CustomerService {
         return listOfCustomersToShow;
     }
 
+    @Override
+    public List<Customer> findCustomerRange(Long from, Long to) {
+        List<Customer> allCustomers = findAllCustomers();
+        List<Customer> listOfCustomersToShow = new ArrayList<>();
+        if (from == null) {
+            from = 0L;
+        }
+        if (to == null) {
+            to = Long.MAX_VALUE;
+        }
+        for (Customer c: allCustomers) {
+            if (c.getId() >= from && c.getId() <= to) {
+                listOfCustomersToShow.add(c);
+            }
+        }
+        return listOfCustomersToShow;
+    }
+
 }

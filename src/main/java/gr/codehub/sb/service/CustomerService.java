@@ -7,4 +7,5 @@ import java.util.List;
 public interface CustomerService {
     Customer findCustomerById(long id);
     List<Customer> findAllCustomers();
+    List<Customer> findCustomerRange(Long from, Long to);
 }
