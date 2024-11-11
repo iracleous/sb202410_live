@@ -16,11 +16,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     public Customer findCustomerById(long id){
-        Customer response = customerRepository.findCustomerById(id);
-        if (isHiddenCustomer(response)) {
+        Customer customer = customerRepository.findCustomerById(id);
+        if (customer.isHidden()) {
             return null;
         }
-        return response;
+        return customer;
     }
 
     @Override
@@ -28,14 +28,11 @@ public class CustomerServiceImpl implements CustomerService {
         List<Customer> listOfCustomersFromDb = customerRepository.findAllCustomers();
         List<Customer> listOfCustomersToShow = new ArrayList<>();
         for (Customer c: listOfCustomersFromDb) {
-            if (!isHiddenCustomer(c)) {
+            if (!c.isHidden()) {
                 listOfCustomersToShow.add(c);
             }
         }
         return listOfCustomersToShow;
     }
 
-    public boolean isHiddenCustomer(Customer customer) {
-        return customer.getId() >= 1_000_000;
-    }
 }
